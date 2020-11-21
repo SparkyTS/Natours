@@ -78,6 +78,32 @@ app.patch('/api/v1/tours/:id', (req, res) => {
   });
 });
 
+app.delete('/api/v1/tours/:id', (req, res) => {
+
+  const id = req.params.id * 1;
+  const tour = tours.find(t => t.id === id);
+  if (!tour) {
+    return res.status(400).json(
+      {
+        status: 'fail',
+        message: 'Invalid ID'
+      });
+  }
+
+  tours = tours.filter(t => t.id !== id)
+  res.status(204).json({
+    status: 'success',
+    data: null
+  });
+  // commenting out the code which preform actual changes to the file to preserve the data
+  /*fs.writeFile(`${__dirname}/dev-data/data/tours-simple.json`, JSON.stringify(tours), err => {
+    res.status(204).json({
+      status: 'success',
+      data: null
+    });
+  });*/
+});
+
 const port = 3000;
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
