@@ -1,0 +1,28 @@
+{
+  "name": "natours",
+  "version": "1.0.0",
+  "description": "Learning node, express and mongoDB",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SparkyTS/Natours.git"
+  },
+  "keywords": [
+    "Node",
+    "Express",
+    "MongoDB"
+  ],
+  "author": "Tanay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SparkyTS/Natours/issues"
+  },
+  "homepage": "https://github.com/SparkyTS/Natours#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
