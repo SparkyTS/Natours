@@ -107,6 +107,47 @@ const deleteTour = (req, res) => {
     status: 'success',
     data: null
   });
+};
+
+const getAllUser = (req, res) => {
+  res.status(500).json(
+    {
+      status: 'error',
+      message: 'This route is not yet defined!'
+    });
+};
+
+const createUser = (req, res) => {
+  res.status(500).json(
+    {
+      status: 'error',
+      message: 'This route is not yet defined!'
+    });
+};
+
+const getUserById = (req, res) => {
+  res.status(500).json(
+    {
+      status: 'error',
+      message: 'This route is not yet defined!'
+    });
+};
+
+const updateUser = (req, res) => {
+  res.status(500).json(
+    {
+      status: 'error',
+      message: 'This route is not yet defined!'
+    });
+};
+
+const deleteUser = (req, res) => {
+  res.status(500).json(
+    {
+      status: 'error',
+      message: 'This route is not yet defined!'
+    });
+};
   // commenting out the code which preform actual changes to the file to preserve the data
   /*fs.writeFile(`${__dirname}/dev-data/data/tours-simple.json`, JSON.stringify(tours), err => {
     res.status(204).json({
@@ -114,7 +155,6 @@ const deleteTour = (req, res) => {
       data: null
     });
   });*/
-};
 
 // app.get('/api/v1/tours', getAllTours);
 // app.post('/api/v1/tours', createTour);
@@ -133,6 +173,17 @@ app
   .get(getTourByID)
   .patch(updateTour)
   .delete(deleteTour);
+
+app
+  .route('/api/v1/users')
+  .get(getAllUser)
+  .post(createUser);
+
+app
+  .route('/api/v1/users/:id')
+  .get(getUserById)
+  .patch(updateUser)
+  .delete(deleteUser);
 
 // 4) Start Server
 const port = 3000;
