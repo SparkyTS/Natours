@@ -16,6 +16,7 @@ exports.checkID = (req, res, next, val) => {
         message: 'Invalid ID'
       });
   }
+  req.tour = tour;
   next();
 };
 
@@ -41,12 +42,11 @@ exports.getAllTours = (req, res) => {
     });
 };
 
-exports.getTourByID = (req, res) => {
-  const id = req.params.id * 1;
+exports.getTourById = (req, res) => {
   res.status(200).json(
     {
       status: 'success',
-      data: tours.find(t => t.id === id)
+      data: req.tour // filtered tour from the check id middleware
     });
 };
 
@@ -68,8 +68,8 @@ exports.createTour = (req, res) => {
 
 exports.updateTour = (req, res) => {
   const id = req.params.id * 1;
-  // finding the tour with id equals to the tour id passed in request
-  const tour = tours.find(t => t.id === id);
+  // tour filtered from the check id middleware
+  const tour = req.tour;
   // removing the tour which needs to be updated
   tours = tours.filter(t => t.id !== id);
   // updating the tour and adding back to tours

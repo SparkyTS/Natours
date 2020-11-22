@@ -11,7 +11,7 @@ router
 
 router
   .route('/:id')
-  .get(tourController.getTourByID)
+  .get(tourController.getTourById)
   .patch(tourController.updateTour)
   .delete(tourController.deleteTour);
 
