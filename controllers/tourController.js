@@ -74,18 +74,16 @@ exports.updateTour = async (req, res) => {
   }
 };
 
-exports.deleteTour = (req, res) => {
-  // const id = req.params.id * 1;
-  // tours = tours.filter(t => t.id !== id);
-  res.status(204).json({
-    status: 'success',
-    data: null
-  });
-  // commenting out the code which preform actual changes to the file to preserve the data
-  /*fs.writeFile(`${__dirname}/dev-data/data/tours-simple.json`, JSON.stringify(tours), err => {
+exports.deleteTour = async (req, res) => {
+  try {
+    await Tour.findByIdAndDelete(req.params.id);
     res.status(204).json({
-      status: 'success',
-      data: null
+      status: 'success'
     });
-  });*/
+  } catch (err) {
+    res.status(400).json({
+      status: 'fail',
+      message: err
+    });
+  }
 };
