@@ -36,11 +36,3 @@ process.on('unhandledRejection', err => {
     process.exit(1);
   });
 });
-
-process.on('uncaughtException', err => {
-  console.error('UNCAUGHT EXCEPTION! 💥 Shutting down...!');
-  console.error(err.name, err.message);
-  server.close(() => {
-    process.exit(1);
-  });
-});
