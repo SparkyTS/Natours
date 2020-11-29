@@ -11,7 +11,8 @@ mongoose
   .connect(DB, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAnyModify: false
+    useFindAnyModify: false,
+    useUnifiedTopology: true
   }).then(con => console.log('DB connection successful!'));
 
 const port = process.env.PORT || 3000;
