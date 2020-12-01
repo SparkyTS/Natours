@@ -50,6 +50,10 @@ userSchema.pre('save', async function(next) {
   // Hash the password with cost of 12
   this.password = await bcrypt.hash(this.password, 12);
 
+  // If password is not set for the first time, update passwordChangedAt field
+  if (!this.isNew)
+    this.passwordChangedAt = Date.now() - 1000; //to keep up with the time it takes to save document
+
   // Delete the password confirm field
   this.passwordConfirm = undefined;
   next();
