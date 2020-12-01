@@ -10,19 +10,20 @@ const signToken = id => jwt.sign({ id }, process.env.JWT_SECRET, {
   expiresIn: process.env.JWT_EXPIRES_IN
 });
 
+const createAndSendToken = (user, statusCode, res) => {
+  const token = signToken(user._id);
+
+  res.status(statusCode).json({
+    status: 'success',
+    token,
+    data: { user }
+  });
+};
+
 exports.signup = catchAsync(async (req, res, next) => {
   const { name, email, password, passwordConfirm } = req.body;
   const newUser = await User.create({ name, email, password, passwordConfirm });
-
-  const token = signToken(newUser._id);
-
-  res.status(200).json({
-    status: 'success',
-    token
-    // data: {
-    //   user: newUser
-    // }
-  });
+  createAndSendToken(newUser, 201, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -38,12 +39,8 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError('Incorrect email or password', 401));
 
   // 3) If everything ok, send token to client
-  const token = signToken(user._id);
+  createAndSendToken(user, 200, res);
 
-  res.status(200).json({
-    status: 'success',
-    token
-  });
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -140,10 +137,23 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   await user.save();
 
   // 3) Log the user in, send JWT
-  const token = signToken(user._id);
+  createAndSendToken(user, 200, res);
+});
 
-  res.status(200).json({
-    status: 'success',
-    token
-  });
+exports.updatePassword = catchAsync(async (req, res, next) => {
+  // 1) Get user from the collection
+  const user = await User.findById(req.user.id).select('+password');
+
+  // 2) Check if the posted password is correct
+  const isPasswordCorrect = await user.correctPassword(req.body.passwordCurrent, user.password);
+  if (!isPasswordCorrect)
+    return next(new AppError('Your current password is wrong.', 401));
+
+  // 3) If so, update the password
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  await user.save();
+
+  // 4) Log user in, send JWT
+  createAndSendToken(user, 200, res);
 });
