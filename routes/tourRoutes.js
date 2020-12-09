@@ -2,7 +2,10 @@ const router = require('express').Router();
 
 const tourController = require('./../controllers/tourController');
 const authController = require('./../controllers/authController');
+const reviewRouter = require('./../routes/reviewRoute');
 
+
+router.use('/:tourId/reviews', reviewRouter);
 
 // router.param('id', tourController.checkID);
 
