@@ -30,33 +30,16 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.getAllUser = catchAsync(async (req, res, next) => {
-  const users = await User.find();
-  // SEND RESPONSE
-  res.status(200).json(
-    {
-      status: 'success',
-      results: users.length,
-      data: { users }
-    });
-});
-
 exports.createUser = (req, res) => {
   res.status(500).json(
     {
       status: 'error',
-      message: 'This route is not yet defined!'
+      message: 'This route is not defined! please use /signUp instead.'
     });
 };
 
-exports.getUserById = (req, res) => {
-  res.status(500).json(
-    {
-      status: 'error',
-      message: 'This route is not yet defined!'
-    });
-};
-
+exports.getAllUser = factory.getAll(User);
+exports.getUserById = factory.getOne(User);
 //Do not user this method to update USER password
 exports.updateUser = factory.updateOne(User);
 exports.deleteUser = factory.deleteOne(User);
