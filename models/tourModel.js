@@ -155,6 +155,7 @@ tourSchema.pre('aggregate', function(next) {
   else
     //else pipeline is empty so filtering public tours only
     this.pipeline().unshift(onlyPublicTours);
+
   next();
 });
 

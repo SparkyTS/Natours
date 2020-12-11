@@ -28,7 +28,7 @@ router
 
 router
   .route('/:id')
-  .get(tourController.getTourById)
+  .get(tourController.getTour)
   .patch(authController.protect,
     authController.restrictTo(UserRole.ADMIN, UserRole.LEAD_GUIDE),
     tourController.updateTour)

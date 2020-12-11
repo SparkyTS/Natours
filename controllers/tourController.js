@@ -14,7 +14,7 @@ exports.aliasTopTours = (req, res, next) => {
 // Handlers
 
 exports.getAllTours = factory.getAll(Tour);
-exports.getTourById = factory.getOne(Tour, { path: 'reviews' });
+exports.getTour = factory.getOne(Tour, { path: 'reviews' });
 exports.createTour = factory.creatOne(Tour);
 exports.updateTour = factory.updateOne(Tour);
 exports.deleteTour = factory.deleteOne(Tour);
