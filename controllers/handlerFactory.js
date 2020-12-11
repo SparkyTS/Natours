@@ -65,7 +65,7 @@ exports.getAll = Model => catchAsync(async (req, res, next) => {
     .sort()
     .limitFields()
     .paginate();
-  const docs = await features.mQuery.explain();
+  const docs = await features.mQuery;
   // SEND RESPONSE
   res.status(200).json(
     {
